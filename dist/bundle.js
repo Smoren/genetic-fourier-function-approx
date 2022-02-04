@@ -25811,8 +25811,8 @@ chart.addFunctionGraph('applicant', 'Applicant', '#0000ff', []);
 chart.init();
 
 const genAlgo = new _tools_genetic_algorithm__WEBPACK_IMPORTED_MODULE_1__["default"](
-    ref, 2000, 0.3, 0.3,
-    0.2, 2, 1+3*100, 1000
+    ref, 3000, 0.3, 0.3,
+    0.2, 2, 1+3*200, 1000
 );
 
 const deviationDomElement = document.getElementById('deviation');
