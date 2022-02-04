@@ -1,5 +1,5 @@
 {
-  "name": "genetic-fourier-function-approx-2d",
+  "name": "genetic-fourier-function-approx",
   "version": "0.0.1",
   "description": "Genetic algorithm for functions approximation by Fourier series",
   "main": "index.js",
@@ -27,12 +27,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Smoren/genetic-fourier-function-approx-2d-js"
+    "url": "git+https://github.com/Smoren/genetic-fourier-function-approx-js"
   },
   "author": "Smoren",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Smoren/genetic-fourier-function-approx-2d-js/issues"
+    "url": "https://github.com/Smoren/genetic-fourier-function-approx-js/issues"
   },
-  "homepage": "https://github.com/Smoren/genetic-fourier-function-approx-2d-js#readme"
+  "homepage": "https://github.com/Smoren/genetic-fourier-function-approx-js#readme"
 }
