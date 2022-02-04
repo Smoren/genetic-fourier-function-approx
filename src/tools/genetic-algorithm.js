@@ -23,8 +23,9 @@ class GeneticAlgorithm {
     start(viewCallback, interval = 30) {
         this.ticker = setInterval(() => {
             this.population = this.makeNextPopulation((bestCreature, diff) => {
+                const fourier = bestCreature.toFourier();
                 viewCallback(
-                    this.pointsGenerator.generate((x) => bestCreature.toFourier().getValue(x)),
+                    this.pointsGenerator.generate((x) => fourier.getValue(x)),
                     diff
                 );
             });
