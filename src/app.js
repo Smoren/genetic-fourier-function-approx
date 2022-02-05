@@ -4,16 +4,15 @@ import PointsGenerator from "./tools/points-generator";
 
 const chart = new Chart('#chart svg');
 
-const pGen = (new PointsGenerator()).initByInterval(1, 100, 5);
-const ref = pGen.generate((x) => x*x + Math.log(x) + 1/x + 10000*Math.sin(Math.pow(2, x)));
+const pGen = (new PointsGenerator()).initByInterval(1, 50, 1);
+const ref = pGen.generate((x) => (x+3)*(Math.sqrt(Math.abs(5*Math.sin(Math.log(x*x)*x/50)))-5)-10*Math.sin(Math.sqrt(x)));
 
 chart.addFunctionGraph('reference', 'Reference', '#00ff00', ref);
 chart.addFunctionGraph('applicant', 'Applicant', '#0000ff', []);
 chart.init();
 
 const genAlgo = new GeneticAlgorithm(
-    ref, 3000, 0.3, 0.3,
-    0.2, 2, 1+3*200, 1000
+    ref, 1000, 0.5, 0.2, 2, 1+3*50, 1
 );
 
 const deviationDomElement = document.getElementById('deviation');

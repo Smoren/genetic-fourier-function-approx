@@ -25325,16 +25325,19 @@ class Genome {
         for(let i=0; i<this.data.length; ++i) {
             if(Math.random() < mutationProbability) {
                 let rand = Math.random();
-                if(rand > 0.8) {
+                let randStep = 1/6;
+                if(rand > 1-randStep) {
                     this.data[i] *= 2;
-                } else if(rand > 0.6) {
+                } else if(rand > 1-randStep*2) {
                     this.data[i] /= 2;
-                } else if(rand > 0.4) {
+                } else if(rand > 1-randStep*3) {
                     this.data[i] = -this.data[i];
-                } else if(rand > 0.2) {
+                } else if(rand > 1-randStep*4) {
                     this.data[i] += 1;
-                } else {
+                } else if(rand > 1-randStep*5) {
                     this.data[i] -= 1;
+                } else {
+                    this.data[i] = 1/this.data[i];
                 }
             }
         }
@@ -25502,14 +25505,13 @@ __webpack_require__.r(__webpack_exports__);
 
 class GeneticAlgorithm {
     constructor(
-        reference, populationCount, surviveFraction, crossFraction, randomProbability, mutationProbability,
+        reference, populationCount, surviveFraction, crossFraction, mutationProbability,
         genomeLength, genValueAmplitude
     ) {
         this.reference = reference;
         this.populationCount = populationCount;
         this.surviveCount = Math.round(populationCount * surviveFraction);
         this.crossCount = Math.round(this.surviveCount * crossFraction);
-        this.randomProbability = randomProbability;
         this.mutationProbability = mutationProbability;
         this.population = [];
         this.genomeFactory = new _genome_factory__WEBPACK_IMPORTED_MODULE_0__["default"](genomeLength, -genValueAmplitude, genValueAmplitude);
@@ -25591,11 +25593,7 @@ class GeneticAlgorithm {
 
         let i=0;
         while(nextPopulation.length < this.populationCount) {
-            if(Math.random() > this.randomProbability) {
-                nextPopulation.push(buf[i][0].clone(this.mutationProbability));
-            } else {
-                nextPopulation.push(this.genomeFactory.generate());
-            }
+            nextPopulation.push(buf[i][0].clone(this.mutationProbability));
             ++i;
         }
 
@@ -25803,16 +25801,15 @@ __webpack_require__.r(__webpack_exports__);
 
 const chart = new _tools_chart__WEBPACK_IMPORTED_MODULE_0__["default"]('#chart svg');
 
-const pGen = (new _tools_points_generator__WEBPACK_IMPORTED_MODULE_2__["default"]()).initByInterval(1, 100, 5);
-const ref = pGen.generate((x) => x*x + Math.log(x) + 1/x + 10000*Math.sin(Math.pow(2, x)));
+const pGen = (new _tools_points_generator__WEBPACK_IMPORTED_MODULE_2__["default"]()).initByInterval(1, 50, 1);
+const ref = pGen.generate((x) => (x+3)*(Math.sqrt(Math.abs(5*Math.sin(Math.log(x*x)*x/50)))-5)-10*Math.sin(Math.sqrt(x)));
 
 chart.addFunctionGraph('reference', 'Reference', '#00ff00', ref);
 chart.addFunctionGraph('applicant', 'Applicant', '#0000ff', []);
 chart.init();
 
 const genAlgo = new _tools_genetic_algorithm__WEBPACK_IMPORTED_MODULE_1__["default"](
-    ref, 3000, 0.3, 0.3,
-    0.2, 2, 1+3*200, 1000
+    ref, 1000, 0.5, 0.2, 2, 1+3*50, 1
 );
 
 const deviationDomElement = document.getElementById('deviation');

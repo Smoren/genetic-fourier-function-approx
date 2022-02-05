@@ -30,16 +30,19 @@ class Genome {
         for(let i=0; i<this.data.length; ++i) {
             if(Math.random() < mutationProbability) {
                 let rand = Math.random();
-                if(rand > 0.8) {
+                let randStep = 1/6;
+                if(rand > 1-randStep) {
                     this.data[i] *= 2;
-                } else if(rand > 0.6) {
+                } else if(rand > 1-randStep*2) {
                     this.data[i] /= 2;
-                } else if(rand > 0.4) {
+                } else if(rand > 1-randStep*3) {
                     this.data[i] = -this.data[i];
-                } else if(rand > 0.2) {
+                } else if(rand > 1-randStep*4) {
                     this.data[i] += 1;
-                } else {
+                } else if(rand > 1-randStep*5) {
                     this.data[i] -= 1;
+                } else {
+                    this.data[i] = 1/this.data[i];
                 }
             }
         }

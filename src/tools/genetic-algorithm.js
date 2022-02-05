@@ -3,14 +3,13 @@ import PointsGenerator from "./points-generator";
 
 class GeneticAlgorithm {
     constructor(
-        reference, populationCount, surviveFraction, crossFraction, randomProbability, mutationProbability,
+        reference, populationCount, surviveFraction, crossFraction, mutationProbability,
         genomeLength, genValueAmplitude
     ) {
         this.reference = reference;
         this.populationCount = populationCount;
         this.surviveCount = Math.round(populationCount * surviveFraction);
         this.crossCount = Math.round(this.surviveCount * crossFraction);
-        this.randomProbability = randomProbability;
         this.mutationProbability = mutationProbability;
         this.population = [];
         this.genomeFactory = new GenomeFactory(genomeLength, -genValueAmplitude, genValueAmplitude);
@@ -92,11 +91,7 @@ class GeneticAlgorithm {
 
         let i=0;
         while(nextPopulation.length < this.populationCount) {
-            if(Math.random() > this.randomProbability) {
-                nextPopulation.push(buf[i][0].clone(this.mutationProbability));
-            } else {
-                nextPopulation.push(this.genomeFactory.generate());
-            }
+            nextPopulation.push(buf[i][0].clone(this.mutationProbability));
             ++i;
         }
 
